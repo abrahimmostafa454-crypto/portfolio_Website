@@ -1,41 +1,56 @@
-const text = "Software Engineer | Embedded Systems | AI Enthusiast";
-
+const text = "Software Engineer | Frontend Developer | AI Enthusiast";
 let i = 0;
 
-function type() {
-
-  if (i < text.length) {
-
-    document.getElementById("typing").innerHTML += text.charAt(i);
-
+function type(){
+  if(i < text.length){
+    document.getElementById("typing").innerHTML += text[i];
     i++;
-
-    setTimeout(type, 50);
-
+    setTimeout(type,50);
   }
-
 }
-
 type();
 
-const btn = document.getElementById("modeBtn");
+/* SCROLL */
+const sections = document.querySelectorAll("section");
 
-btn.addEventListener("click", function () {
+window.addEventListener("scroll",()=>{
+  sections.forEach(sec=>{
+    if(sec.getBoundingClientRect().top < window.innerHeight - 100){
+      sec.classList.add("show");
+    }
+  });
+});
 
-  document.body.classList.toggle("dark");
+/* SKILLS */
+const fills = document.querySelectorAll(".skill-fill");
 
-  document.body.classList.toggle("light");
+window.addEventListener("scroll",()=>{
+  fills.forEach(fill=>{
+    if(fill.getBoundingClientRect().top < window.innerHeight - 50){
+      fill.style.width = fill.dataset.width;
+    }
+  });
+});
 
-  if (document.body.classList.contains("dark")) {
+/* TOP BUTTON */
+const topBtn = document.getElementById("topBtn");
 
-    btn.innerText = "Light Mode";
+window.addEventListener("scroll",()=>{
+  topBtn.style.display = window.scrollY > 300 ? "block" : "none";
+});
 
-  }
+topBtn.onclick = ()=>{
+  window.scrollTo({top:0,behavior:"smooth"});
+};
 
-  else {
+/* CURSOR */
+const cursor = document.querySelector(".cursor");
+const glow = document.querySelector(".cursor-glow");
 
-    btn.innerText = "Dark Mode";
+document.addEventListener("mousemove",(e)=>{
+  cursor.style.left = e.clientX + "px";
+  cursor.style.top = e.clientY + "px";
 
-  }
-
+  glow.style.left = e.clientX + "px";
+  glow.style.top = e.clientY + "px";
 });
